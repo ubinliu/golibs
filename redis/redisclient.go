@@ -60,6 +60,10 @@ func (redisClient RedisClient) Get(key string) (result string, err error){
 		return "", &RedisError{Errno:1, Errmsg:"redis get failed", Err:err}
 	}
 	
+	if value == nil {
+		return "", nil
+	}
+	
 	result,err = redis.String(value, err)
 	if err != nil {
 		return "", &RedisError{Errno:1, Errmsg:"redis convert to string failed", Err:err}
