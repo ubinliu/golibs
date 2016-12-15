@@ -41,6 +41,11 @@ func (redisClient *RedisClient) OpenConn(host string, port string) (err error){
 	return
 }
 
+func (redisClient *RedisClient) Auth(password string) (err error) {
+	err = (*redisClient.conn).Send("AUTH", password)
+	return err
+}
+
 func (redisClient RedisClient)CloseConn(){
 	(*(redisClient).conn).Close()
 }
